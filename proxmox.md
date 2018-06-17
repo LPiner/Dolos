@@ -2,7 +2,7 @@
 
 ### Passing Through Your GPU
 
-Add amd_iommu=on to /etc/default/grub:
+1 .Add amd_iommu=on to /etc/default/grub:
 
     root@pve:~# cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT=
     GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on pcie_acs_override=downstream,multifunction"
@@ -12,11 +12,11 @@ If you need the ACS patch now you can add it in here as well:
     root@pve:~# cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT=
     GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on pcie_acs_override=downstream,multifunction"
     
-Update GRUB:
+2. Update GRUB:
 
     root@pve:~# update-grub
     
-Blacklist your card in modprobe:
+3. Blacklist your card in modprobe:
 
         root@pve:~# cat /etc/modprobe.d/blacklist.conf
         blacklist radeon
@@ -24,11 +24,11 @@ Blacklist your card in modprobe:
         blacklist nvidia
         root@pve:~#
 
-Commit those changes with:
+4 .Commit those changes with:
 
     root@pve:~# update-initramfs -u
 
-Update /etc/modules:
+5. Update /etc/modules:
 
     root@pve:~# cat /etc/modules
     # /etc/modules: kernel modules to load at boot time.
@@ -41,6 +41,32 @@ Update /etc/modules:
     vfio_virqfd
 
     root@pve:~#
+
+6. Figure out what card you want the guest to have, I'm going to use the 1080:
+
+    root@pve:~# lspci -v | grep NVIDIA
+    08:00.0 VGA compatible controller: NVIDIA Corporation GP107 [GeForce GTX 1050] (rev a1) (prog-if 00 [VGA controller])
+    08:00.1 Audio device: NVIDIA Corporation Device 0fb9 (rev a1)
+    0b:00.0 VGA compatible controller: NVIDIA Corporation GP107 [GeForce GTX 1050] (rev a1) (prog-if 00 [VGA controller])
+    0b:00.1 Audio device: NVIDIA Corporation Device 0fb9 (rev a1)
+    0c:00.0 VGA compatible controller: NVIDIA Corporation GP104 [GeForce GTX 1080] (rev a1) (prog-if 00 [VGA controller])
+    0c:00.1 Audio device: NVIDIA Corporation GP104 High Definition Audio Controller (rev a1)
+    root@pve:~#
+
+7. Get the vendor ids with the PCI address, the 1080 is 0c:00 as shown above:
+
+    root@pve:~# lspci -n -s 0c:00
+    0c:00.0 0300: 10de:1b80 (rev a1)
+    0c:00.1 0403: 10de:10f0 (rev a1)
+    root@pve:~#
+ 
+8. Create /etc/modprobe.d/vfio.conf and add the vendor IDs in:
+
+    root@pve:~# cat /etc/modprobe.d/vfio.conf
+    options vfio-pci ids=10de:1b80,10de:10f0
+    root@pve:~#
+
+9. Reboot the host
 
 ### Sound
 
