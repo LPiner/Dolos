@@ -2,7 +2,7 @@
 
 ### Passing Through Your GPU
 
-1 .Add amd_iommu=on to /etc/default/grub:
+1. Add amd_iommu=on to /etc/default/grub:
 
     root@pve:~# cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT=
     GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on pcie_acs_override=downstream,multifunction"
@@ -24,7 +24,7 @@ If you need the ACS patch now you can add it in here as well:
         blacklist nvidia
         root@pve:~#
 
-4 .Commit those changes with:
+4. Commit those changes with:
 
     root@pve:~# update-initramfs -u
 
