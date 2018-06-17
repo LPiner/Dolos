@@ -14,7 +14,7 @@ If you need the ACS patch now you can add it in here as well:
     
 2. Update GRUB:
 
-    root@pve:~# update-grub
+        root@pve:~# update-grub
     
 3. Blacklist your card in modprobe:
 
