@@ -64,6 +64,26 @@
 
 9. Reboot the host
 
+
+### Windows VM Config
+
+1. Mount the VIRTIO ISO to the CD/DVD drive on the guest. You can download it from here. 
+
+        https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
+2. Convert the guest network adapter type to VirtIO, under the hardware tab.
+3. Add a second disk, make its type SCSI and its size 1g, we will delete it in a second.
+4. Boot the VM and from device manager install the missing drivers. D:\virtioscsi\win10\amd64, D:\NetKVM\win10\amd64
+5. Open an elevated command prompt on the windows guest and run:
+
+                bcdedit /set {current} safeboot minimal
+ 6. Turn off the VM, delete the 1gig SCSI driver you created on step 3.
+ 7. Detach the primary harddisk, edit it to the new SCSI type, add it back to the VM.
+ 8. Boot the VM, it should boot into safe mode. If it does not or it bluescreens revert the disktype back to IDE and start from set one again.
+ 9. Open an elevated command prompt on the windows guest and run:
+ 
+                bcdedit /deletevalue {current} safeboot
+10. Restart the VM, it should boot normally.
+
 ### Sound
 
 Make sure Proxmox supports AC97, you can try this with hda but as of writing this it's totally borked.
