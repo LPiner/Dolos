@@ -7,10 +7,10 @@
         root@pve:~# cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT=
         GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on pcie_acs_override=downstream,multifunction"
     
-If you need the ACS patch now you can add it in here as well:
+   If you need the ACS patch now you can add it in here as well:
 
-    root@pve:~# cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT=
-    GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on pcie_acs_override=downstream,multifunction"
+            root@pve:~# cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT=
+            GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on pcie_acs_override=downstream,multifunction"
     
 2. Update GRUB:
 
