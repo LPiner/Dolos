@@ -1,4 +1,46 @@
+## This is for AMD Ryzen and a NVIDIA CArd, Intel may need other tweaks.
 
+### Passing Through Your GPU
+
+Add amd_iommu=on to /etc/default/grub:
+
+    root@pve:~# cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT=
+    GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on pcie_acs_override=downstream,multifunction"
+    
+If you need the ACS patch now you can add it in here as well:
+
+    root@pve:~# cat /etc/default/grub | grep GRUB_CMDLINE_LINUX_DEFAULT=
+    GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on pcie_acs_override=downstream,multifunction"
+    
+Update GRUB:
+
+    root@pve:~# update-grub
+    
+Blacklist your card in modprobe:
+
+        root@pve:~# cat /etc/modprobe.d/blacklist.conf
+        blacklist radeon
+        blacklist nouveau
+        blacklist nvidia
+        root@pve:~#
+
+Commit those changes with:
+
+    root@pve:~# update-initramfs -u
+
+Update /etc/modules:
+
+    root@pve:~# cat /etc/modules
+    # /etc/modules: kernel modules to load at boot time.
+    #
+    # This file contains the names of kernel modules that should be loaded
+    # at boot time, one per line. Lines beginning with "#" are ignored.
+    vfio
+    vfio_iommu_type1
+    vfio_pci
+    vfio_virqfd
+
+    root@pve:~#
 
 ### Sound
 
