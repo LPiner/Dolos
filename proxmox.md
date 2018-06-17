@@ -14,6 +14,8 @@ Make sure Proxmox supports AC97, you can try this with hda but as of writing thi
     cs4231a     CS4231A
     hda         Intel HD Audio
     pcspk       PC speaker
+    -soundhw all will enable all of the above
+    root@pve:~#
 
 
 Enable audio in Proxmox
@@ -21,6 +23,11 @@ Enable audio in Proxmox
     root@pve:~# cat /etc/modprobe.d/alsa-base.conf
     options snd_hda_intel index-0
     root@pve:~#
+
+Use alsamixer and speaker-test to make sure everything works.
+
+    root@pve:~# alsamixer
+    root@pve:~# speaker-test
 
 Tell your QEMU to give your VM the ac97 passthrough device.
 
@@ -43,5 +50,3 @@ Once Windows comes back go into Device Manager, Right click the multimedia devic
 
 
 
-    -soundhw all will enable all of the above
-    root@pve:~#
