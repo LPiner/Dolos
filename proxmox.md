@@ -18,7 +18,7 @@ Make sure Proxmox supports AC97, you can try this with hda but as of writing thi
     root@pve:~#
 
 
-Enable audio in Proxmox
+Enable audio in Proxmox, reboot the server.
 
     root@pve:~# cat /etc/modprobe.d/alsa-base.conf
     options snd_hda_intel index-0
