@@ -31,10 +31,6 @@ If you need the ACS patch now you can add it in here as well:
 5. Update /etc/modules:
 
     root@pve:~# cat /etc/modules
-    # /etc/modules: kernel modules to load at boot time.
-    #
-    # This file contains the names of kernel modules that should be loaded
-    # at boot time, one per line. Lines beginning with "#" are ignored.
     vfio
     vfio_iommu_type1
     vfio_pci
