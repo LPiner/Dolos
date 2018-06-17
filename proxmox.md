@@ -1,7 +1,6 @@
 
 
-=====
-Sound
+### Sound
 
 Enable audio in Proxmox
 
@@ -17,6 +16,13 @@ Tell your QEMU to give your VM the ac97 passthrough device.
 
 AC97 Drivers need to be installed on your VM.
 http://www.realtek.com.tw/downloads/downloadsView.aspx?Langid=1&PNid=14&PFid=23&Level=4&Conn=3&DownTypeID=3&GetDown=false
+
+YOU MUST DISABLE DRIVER SIGNING TO GET THEM INSTALLED
+Settings > Update & Security > Recovery in the left pane > Advanced Start-up > Restart Now
+
+Once restarted you need to choose option 7 which disables driver signature enforcement.
+
+Once Windows comes back go into Device Manager, Right click the multimedia device and choose 'Update Driver Software' click browse on the next page and navigate to the realtek driver you downloaded earlier.
 
 
     root@pve:~# kvm -soundhw ?
