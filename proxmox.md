@@ -47,6 +47,8 @@ Once restarted you need to choose option 7 which disables driver signature enfor
 
 Once Windows comes back go into Device Manager, Right click the multimedia device and choose 'Update Driver Software' click browse on the next page and navigate to the realtek driver you downloaded earlier.
 
+If the driver installs and speaker-test works then you should have sound.
+
 
 
 
