@@ -11,3 +11,6 @@ Providing a detailed introduction to virtualization and its terminology, a set o
 * Perfect: While we strive to provide a complete user experience, there is no gaurentee that we will have every edge case covered. If you find an issue and find a way to solve it, consider creating a pull request so other don't have to experience the same issues. 
 * Optomized: The best practices and methods listed are from tested user experiences, that give "good enough" performance. Performance is as close as possible to bare metal without sacrificing usability or complicating the setup experience extensively. Once you have a working solution up and running, it is recommonded continued reading in perfomance tuning if you wish to extract every bit of performance possible.
 * Bleeding Edge: all choices made during the development of this guide favour stability over anything else. What good is an over clocked, benchmark breaking rig if you can't run it longer than 5 minutes without crashing?
+
+
+lstopo
