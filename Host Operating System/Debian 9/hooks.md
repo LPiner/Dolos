@@ -1,3 +1,6 @@
+A lot of this was pulled from https://github.com/bryansteiner/gpu-passthrough-tutorial/#part4 , there are more hooks there. Hugepages is here since I needed to fix it.
+
+### Give your vm some memory and back it with hugepages.
 ```
 <memory unit="KiB">16777216</memory>
 <currentMemory unit="KiB">16777216</currentMemory>
@@ -6,7 +9,13 @@
 </memoryBacking>
 
 ```
-
+### QEMU supports hooks so lets get those installed
+```
+$ sudo wget 'https://raw.githubusercontent.com/PassthroughPOST/VFIO-Tools/master/libvirt_hooks/qemu' \
+     -O /etc/libvirt/hooks/qemu
+$ sudo chmod +x /etc/libvirt/hooks/qemu
+```
+### What your hook structure should look like.
 ```
 $ tree /etc/libvirt/hooks/
 /etc/libvirt/hooks/
@@ -23,7 +32,7 @@ $ tree /etc/libvirt/hooks/
                 ├── ...
                 └── dealloc_hugepages.sh
 ```
-
+ ### For standing up hugepages on the fly.
 `alloc_hugepages.sh`
 ```
 #!/bin/bash
@@ -70,3 +79,5 @@ source "/etc/libvirt/hooks/kvm.conf"
 
 echo 0 > /proc/sys/vm/nr_hugepages
 ```
+
+
